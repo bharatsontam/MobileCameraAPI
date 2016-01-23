@@ -7,7 +7,7 @@
 
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
     <script type="text/javascript">
-        debugger;
+        <!-- debugger; -->
         var geocoder;
         var time = new Date().getTime();
         if (navigator.geolocation) {
@@ -23,7 +23,7 @@
         }
         //Get the latitude and the longitude;
         function successFunction(position) {
-            debugger;
+            <!-- debugger; -->
             var lat = position.coords.latitude;
             var lng = position.coords.longitude;
             var details = "latitude:" + lat + " ," + "longitude:" + lng;
@@ -31,7 +31,7 @@
             //alert(details);
             document.getElementById("demo").innerHTML = details;
 
-            alert(getTimeDifference(position.timestamp, time));
+            <!-- alert(getTimeDifference(position.timestamp, time)); -->
 
         }
 
