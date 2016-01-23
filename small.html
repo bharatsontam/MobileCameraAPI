@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <h1>
+        Webcam test with HTML5
+    </h1>
+    <video id="my_video" autoplay width="500" height="250"></video>
+
+    <script type="text/javascript">
+        function connect(stream) {
+            debugger;
+            var video = document.getElementById("my_video");
+            video.src = window.URL ? window.URL.createObjectURL(stream) : stream;
+            video.play();
+        }
+        function error(e) {
+            debugger;
+            console.log(e);
+        }
+        window.onload = function () {
+            debugger;
+            navigator.myGetMedia = (navigator.getUserMedia ||
+              navigator.webkitGetUserMedia ||
+              navigator.mozGetUserMedia ||
+              navigator.msGetUserMedia);
+            navigator.myGetMedia({ video: true }, connect, error);
+        }
+
+    </script>
+</body>
+</html>
