@@ -179,6 +179,8 @@
 
                             // Set img src to ObjectURL
                             showPicture.src = imgURL;
+                            
+                            alert(imgURL);
 
                             // Revoke ObjectURL after imagehas loaded
                             showPicture.onload = function () {
