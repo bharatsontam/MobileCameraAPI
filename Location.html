@@ -7,23 +7,18 @@
 
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
     <script type="text/javascript">
-        <!-- debugger; -->
+        
         var geocoder;
         var time = new Date().getTime();
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
-            debugger;
-            var i = 0;
-            for (; ;) {
-                i++;
-                if (i > 1000) {
-                    break;
-                }
+        setInterval(function () {
+            
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
             }
-        }
+        },1000);
         //Get the latitude and the longitude;
         function successFunction(position) {
-            <!-- debugger; -->
+            
             var lat = position.coords.latitude;
             var lng = position.coords.longitude;
             var details = "latitude:" + lat + " ," + "longitude:" + lng;
@@ -31,7 +26,7 @@
             //alert(details);
             document.getElementById("demo").innerHTML = details;
 
-            <!-- alert(getTimeDifference(position.timestamp, time)); -->
+            //alert(getTimeDifference(position.timestamp, time));
 
         }
 
@@ -51,7 +46,7 @@
             var latlng = new google.maps.LatLng(lat, lng);
             geocoder.geocode({ 'latLng': latlng }, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
-                    console.log(results)
+                    //console.log(results)
                     if (results[1]) {
 
                         // alert(results[0].formatted_address)
@@ -69,7 +64,7 @@
                         alert("No results found");
                     }
                 } else {
-                    alert("Geocoder failed due to: " + status);
+                    //alert("Geocoder failed due to: " + status);
                 }
             });
         }
