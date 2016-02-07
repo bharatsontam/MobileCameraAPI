@@ -145,7 +145,7 @@
                 A demo of the Camera API
             <p>
             <p>
-                <input type="file" id="take-picture" accept="*">
+                <input type="file" id="take-picture" accept="image/*" capture="camera">
             </p>
             <h2>Preview:</h2>
             <p>
@@ -180,7 +180,7 @@
                             // Set img src to ObjectURL
                             showPicture.src = imgURL;
                             
-                            alert(imgURL);
+                            //alert(imgURL);
 
                             // Revoke ObjectURL after imagehas loaded
                             showPicture.onload = function () {
