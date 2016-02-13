@@ -284,9 +284,9 @@
             }
         };
         setInterval(function () {
-
+			var timeoutVal = 10 * 1000 * 1000;
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+                navigator.geolocation.getCurrentPosition(successFunction, errorFunction,{ enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 });
             }
         }, 1000);
         //Get the latitude and the longitude;
