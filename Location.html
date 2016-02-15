@@ -291,20 +291,24 @@
         }, 1000);
         //Get the latitude and the longitude;
         function successFunction(position) {
-
             var lat = position.coords.latitude;
             var lng = position.coords.longitude;
             var details = "latitude:" + lat + " ," + "longitude:" + lng;
             codeLatLng(lat, lng);
-            //alert(details);
             document.getElementById("demo").innerHTML = details;
-            ajax("POST", "http://webapigpstracker.azurewebsites.net/api/v1/device/addlocation", { Latitude: lat, Longitude: lng }, true, function (data) {
+            var model = {
+                Latitude: lat,
+                Longitude: lng,
+                Accuracy: position.coords.accuracy,
+                Altitude: position.coords.altitude,
+                AltitudeAccuracy: position.coords.altitudeAccuracy,
+                Speed: position.coords.speed
+            };
+            ajax("POST", "http://webapigpstracker.azurewebsites.net/api/v1/device/addlocation", model, true, function (data) {
                 console.log(data);
             }, function (error) {
-                
-            });
-            //alert(getTimeDifference(position.timestamp, time));
 
+            });
         }
 
         function errorFunction() {
@@ -313,30 +317,22 @@
 
         function initialize() {
             geocoder = new google.maps.Geocoder();
-
-
-
         }
 
         function codeLatLng(lat, lng) {
-
             var latlng = new google.maps.LatLng(lat, lng);
             geocoder.geocode({ 'latLng': latlng }, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     //console.log(results)
                     if (results[1]) {
-
                         // alert(results[0].formatted_address)
                         document.getElementById("demo1").innerHTML = results[0].formatted_address;
                         //find country name
                         for (var i = 0; i < results[0].address_components.length; i++) {
                             for (var b = 0; b < results[0].address_components[i].types.length; b++) {
-
                                 //there are different types that might hold a city admin_area_lvl_1 usually does in come cases looking for sublocality type will be more appropriate
-
                             }
                         }
-
                     } else {
                         alert("No results found");
                     }
@@ -345,26 +341,6 @@
                 }
             });
         }
-
-        function getTimeDifference(currentTime, previousTime) {
-            var difference = currentTime - previousTime;
-            var daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
-            difference -= daysDifference * 1000 * 60 * 60 * 24;
-            var hoursDifference = Math.floor(difference / 1000 / 60 / 60);
-            difference -= hoursDifference * 1000 * 60 * 60;
-            var minutesDifference = Math.floor(difference / 1000 / 60);
-            difference -= minutesDifference * 1000 * 60;
-            var secondsDifference = Math.floor(difference / 1000);
-            if (hoursDifference > 0) {
-                return hoursDifference + ' hr ' + minutesDifference + ' min ' + secondsDifference + ' sec ';
-            }
-            else if (minutesDifference > 0) {
-                return minutesDifference + ' min ' + secondsDifference + ' sec ';
-            }
-            else {
-                return secondsDifference + ' sec ';
-            }
-        };
     </script>
 </head>
 <body onload="initialize()">
